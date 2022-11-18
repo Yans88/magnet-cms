@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/icon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="%PUBLIC_URL%/plugins/fontawesome-free/css/all.min.css"
+    />
+    <!-- Ionicons -->
+    <link
+      rel="stylesheet"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/dist/custom.css" />
+
+    <!-- Daterange picker -->
+
+    <title>CMS Magnet</title>
+  </head>
+
+  <body
+    class="text-sm layout-navbar-fixed control-sidebar-slide-open accent-info"
+  >
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <script src="%PUBLIC_URL%/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="%PUBLIC_URL%/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+    <!-- Bootstrap 4 -->
+    <script src="%PUBLIC_URL%/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="%PUBLIC_URL%/dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  <!-- if ("serviceWorker" in navigator) { -->
+    <!-- window.addEventListener("load", function () { -->
+      <!-- navigator.serviceWorker.register("%PUBLIC_URL%/firebase-messaging-sw.js"); -->
+    <!-- }); -->
+  <!-- } -->
+
+  <!-- try { -->
+	<!-- if (!firebase.apps.length) { -->
+		<!-- const firebaseConfig = { -->
+			<!-- apiKey: "AIzaSyB5PTUFKw7Rrdzw0jVEfnvEgf33BFlsk4I", -->
+			<!-- authDomain: "magnetfx-5a6ac.firebaseapp.com", -->
+			<!-- projectId: "magnetfx-5a6ac", -->
+			<!-- storageBucket: "magnetfx-5a6ac.appspot.com", -->
+			<!-- messagingSenderId: "321695921297", -->
+			<!-- appId: "1:321695921297:web:f11615c0eedffd62f57b30", -->
+			<!-- measurementId: "G-FQZ86N2RR7", -->
+		<!-- }; -->
+		<!-- firebase.initializeApp(firebaseConfig); -->
+    <!-- } -->
+
+    <!-- const messaging = firebase.messaging(); -->
+
+    <!-- messaging.onMessage((payload) => { -->
+		<!-- console.log("Message received. index.html ", payload); -->
+
+		<!-- const notificationTitle = payload.notification.title; -->
+		<!-- const notificationOptions = { -->
+			<!-- body: payload.notification.body,			 -->
+		<!-- }; -->
+
+		<!-- return self.registration.showNotification( -->
+			<!-- notificationTitle, -->
+			<!-- notificationOptions -->
+		<!-- ); -->
+    <!-- }); -->
+
+  //   function resetUI() {
+  //     const vapidKey =
+  //       "BPeV3TmWNbAqs0QcRT3t8b2t-3R1GXbBdgENXHihg_Kq01D_OKFQ1a94vGmAvA19ueavdLvh4ILdttSNaJIFtz0"; //from firebase project settings
+  //     messaging
+  //       .getToken({ vapidKey: vapidKey })
+  //       .then((currentToken) => {
+  //         console.log("currentToken", currentToken);
+  //         if (currentToken) {
+  //           //..
+  //         } else {
+  //           console.log(
+  //             "No registration token available. Request permission to generate one."
+  //           );
+  //           requestPermission();
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log("An error occurred while retrieving token. ", err);
+  //       });
+  //   }
+
+  //   function requestPermission() {
+  //     console.log("Requesting permission...");
+  //     Notification.requestPermission().then((permission) => {
+  //       if (permission === "granted") {
+  //         console.log("Notification permission granted.");
+  //         resetUI();
+  //       } else {
+  //         console.log("Unable to get permission to notify.");
+  //       }
+  //     });
+  //   }
+
+  //   resetUI();
+  <!-- } catch (e) { -->
+    <!-- console.log("firebase startup error ", e); -->
+  <!-- } -->
+</script>
