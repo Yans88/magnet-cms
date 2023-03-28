@@ -343,12 +343,12 @@ class DetailUser extends Component {
     };
 
     reCreatePDF() {
-        this.props.onReCreatePDF(this.state.user_id);
+        this.props.onReCreatePDF(`${this.state.user_id}?data_tipe_akun_id=${this.state.data_tipe_akun_id}`);
     }
 
     reSendPDF() {
         this.setState({reSendPDF: true});
-        this.props.onResendPDF(this.state.user_id);
+        this.props.onResendPDF(`${this.state.user_id}?data_tipe_akun_id=${this.state.data_tipe_akun_id}`);
     }
 
     handleChangeDPP(evt) {

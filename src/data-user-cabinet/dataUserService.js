@@ -414,6 +414,7 @@ export const reCreatePDF = (id) => {
     return async (dispatch) => {
         dispatch(fetchAddDataLoading(isLoading));
         const _data = {};
+        console.log(id);
         await axios.get(API_URL + "/back-office/recreate-pdf/" + id, {
             headers: {
                 'x-app-origin': 'backoffice-app',
