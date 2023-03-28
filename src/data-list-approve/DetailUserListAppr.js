@@ -10,7 +10,7 @@ import {
     rejectData,
     showConfirmApprove,
 } from "../data-user-cabinet/dataUserService";
-import {Button, Form} from "react-bootstrap";
+import {Button, Figure, Form} from "react-bootstrap";
 import {AppSwalSuccess} from "../components/modal/SwalSuccess";
 import NumberFormat from "react-number-format";
 import AppModal from "../components/modal/MyModal";
@@ -72,6 +72,7 @@ class DetailUserListAppr extends Component {
                 handphone: "",
                 status_kepemilikan: "",
                 agree: "",
+
             },
             kekayaan: {
                 kekayaan_id: "",
@@ -269,6 +270,8 @@ class DetailUserListAppr extends Component {
             chk_pertanyaan6: "",
 
             chk_file_dok: "",
+            showImage: false,
+            selected: {file: "", notes: "", showImage: false},
         };
     }
 
@@ -667,6 +670,9 @@ class DetailUserListAppr extends Component {
             dataPengalamanTradingErr: this.dataPengalamanTradingErr,
             dataPekerjaanErr: this.dataPekerjaanErr,
             dokumenErr: this.dokumenErr,
+            selected: {
+                showImage: false,
+            },
             showFormLeverage: false,
         });
         this.props.closeSwal();
@@ -674,8 +680,20 @@ class DetailUserListAppr extends Component {
     }
 
     handleClose() {
-        this.setState({showFormLeverage: false});
+        this.setState({showFormLeverage: false, selected: {
+                showImage: false,
+            }});
+        if (!this.state.reSendPDF) window.location.reload();
     }
+
+    showImg = (record) => {
+        this.setState({
+            selected: {
+                file: record,
+                showImage: true,
+            },
+        });
+    };
 
     render() {
         const {
@@ -684,10 +702,18 @@ class DetailUserListAppr extends Component {
             nama_belakang,
             nama_depan,
             informasi_kelengkapan,
-            status,
+            status,selected
         } = this.state;
 
-
+        const showImg = (
+            <Figure style={{marginTop: ".3rem", marginBottom: 0}}>
+                <Figure.Image
+                    width={450}
+                    height={400}
+                    src={selected.file ? selected.file : ""}
+                />
+            </Figure>
+        );
         const frmUser = (
             <Form id="myForm">
                 <Form.Group controlId="leverage">
@@ -808,10 +834,42 @@ class DetailUserListAppr extends Component {
                                                                 <td className="text-bold">Jenis Identitas</td>
                                                                 <td className="text-bold">:</td>
                                                                 <td>
-                                                                    {informasi_kelengkapan.data_pribadi !== null
-                                                                        ? informasi_kelengkapan.data_pribadi
-                                                                            .jenis_identitas
-                                                                        : ""}
+                                                                    {informasi_kelengkapan.data_pribadi !==
+                                                                    null ? (
+                                                                        <Fragment>
+                                                                            {
+                                                                                informasi_kelengkapan.data_pribadi
+                                                                                    .jenis_identitas
+                                                                            }
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            {informasi_kelengkapan.dokumen
+                                                                                    .arr_dokumen.count.total_data !==
+                                                                                null &&
+                                                                                informasi_kelengkapan.dokumen.arr_dokumen.data.map(
+                                                                                    (item, index) => {
+                                                                                        return (
+                                                                                            item.tipe === "KTP" && (
+                                                                                                <img
+                                                                                                    onClick={(e) =>
+                                                                                                        this.showImg(item.file)
+                                                                                                    }
+                                                                                                    key={
+                                                                                                        "imt_ktp_" +
+                                                                                                        item.dokumen_id
+                                                                                                    }
+                                                                                                    src={item.file}
+                                                                                                    height={100}
+                                                                                                    alt=""
+                                                                                                />
+                                                                                            )
+                                                                                        );
+                                                                                    }
+                                                                                )}
+                                                                        </Fragment>
+                                                                    ) : (
+                                                                        ""
+                                                                    )}
+
                                                                 </td>
                                                             </tr>
 
@@ -1860,6 +1918,16 @@ class DetailUserListAppr extends Component {
                                         ) : (
                                             ""
                                         )}
+                                        <AppModal
+                                            show={selected.showImage}
+                                            form={showImg}
+                                            handleClose={this.handleClose.bind(this)}
+                                            keyboard={false}
+                                            title="View Photo"
+                                            isLoading={this.props.isAddLoading}
+                                            formSubmit=""
+                                            modalFooter="none"
+                                        ></AppModal>
                                         <AppModal
                                             size="sm"
                                             show={this.state.showFormLeverage}
