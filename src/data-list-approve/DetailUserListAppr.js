@@ -7,7 +7,9 @@ import {
     fetchDataDetail,
     fetchDataError,
     fetchDataLoading,
+    reCreatePDF,
     rejectData,
+    reSendPDF,
     showConfirmApprove,
 } from "../data-user-cabinet/dataUserService";
 import {Button, Figure, Form} from "react-bootstrap";
@@ -680,9 +682,11 @@ class DetailUserListAppr extends Component {
     }
 
     handleClose() {
-        this.setState({showFormLeverage: false, selected: {
+        this.setState({
+            showFormLeverage: false, selected: {
                 showImage: false,
-            }});
+            }
+        });
         if (!this.state.reSendPDF) window.location.reload();
     }
 
@@ -695,6 +699,15 @@ class DetailUserListAppr extends Component {
         });
     };
 
+    reCreatePDF() {
+        this.props.onReCreatePDF(`${this.state.user_id}?data_tipe_akun_id=${this.state.data_tipe_akun_id}`);
+    }
+
+    reSendPDF() {
+        this.setState({reSendPDF: true});
+        this.props.onResendPDF(`${this.state.user_id}?data_tipe_akun_id=${this.state.data_tipe_akun_id}`);
+    }
+
     render() {
         const {
             user_id,
@@ -702,7 +715,7 @@ class DetailUserListAppr extends Component {
             nama_belakang,
             nama_depan,
             informasi_kelengkapan,
-            status,selected
+            status, selected
         } = this.state;
 
         const showImg = (
@@ -1947,6 +1960,16 @@ class DetailUserListAppr extends Component {
                                             <i className="fa fa-arrow-left"></i> Back
                                         </Button>
                                         &nbsp;
+                                        <Fragment>
+                                            <Button variant="warning" onClick={this.reCreatePDF.bind(this)}>
+                                                <i className="fa fa-file-pdf"></i> Recreate PDF
+                                            </Button>
+                                            &nbsp;
+                                            <Button variant="info" onClick={this.reSendPDF.bind(this)}>
+                                                <i className="fa fa-file-pdf"></i> Resend PDF
+                                            </Button>
+                                            &nbsp;
+                                        </Fragment>
                                         {status === "Menunggu Verifikasi" && (
                                             <Fragment>
                                                 <Button
@@ -2016,6 +2039,12 @@ const mapDispatchToPros = (dispatch) => {
         },
         onReject: (id, data) => {
             dispatch(rejectData(id, data));
+        },
+        onReCreatePDF: (id) => {
+            dispatch(reCreatePDF(id))
+        },
+        onResendPDF: (id) => {
+            dispatch(reSendPDF(id))
         },
         closeSwal: () => {
             const _data = {};
